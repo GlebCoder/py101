@@ -1,0 +1,12 @@
+{
+  "welcome": "Welcome to calculator!",
+  "your name": "What is your name?",
+  "hello": "Hello",
+  "operation": "What operation you would like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+  "first number": "What is your first number?",
+  "second number": "What is your second number?",
+  "invalid number": "Hm-m, it does not look like a number",
+  "must choose":"You must choose 1, 2, 3, or 4",
+  "result": "The result is",
+  "continue": "Do you want to continue? Please enter yes or no."
+}
