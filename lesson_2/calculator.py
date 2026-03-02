@@ -14,35 +14,39 @@ def invalid_num(num_str):
         return True
     return False
 
-with open("config_message_calculator.json", 'r') as f:
-    messages = json.load(f)
+def messages(message, lang="en"):
+    return MESSAGES[lang][message]
 
-prompt(messages["welcome"])
-prompt(messages["your name"])
+with open("config_message_calculator.json", 'r') as f:
+   MESSAGES = json.load(f)
+
+prompt(messages("welcome", "ru"))
+
+prompt(messages("your name", "ru"))
 name = input()
 
-prompt(f'{messages["hello"]} {name}!')
+prompt(f'{messages("hello", "ru")} {name}!')
 
 while True:
-    prompt(messages["first number"])
+    prompt(messages("first number", "ru"))
     first_num = input()
 
     while invalid_num(first_num):
-        print(messages["invalid number"])
+        print(messages("invalid number", "ru"))
         first_num = input()
 
-    prompt(messages["second number"])
+    prompt(messages("second number", "ru"))
     second_num = input()
 
     while invalid_num(second_num):
-        print(messages["invalid number"])
+        print(messages("invalid number", "ru"))
         second_num = input()
 
-    prompt(messages["operation"])
+    prompt(messages("operation", "ru"))
     operation = input()
 
     while operation not in ["1", "2", "3", "4"]:
-        print(messages["must choose"])
+        print(messages("must choose", "ru"))
         operation = input()
 
     first_num = int(first_num)
@@ -58,8 +62,8 @@ while True:
         case "4":
             output = first_num / second_num
 
-    print(f'{messages["result"]}: {output}')
-    print(messages["continue"])
+    print(f'{messages("result", "ru")}: {output}')
+    print(messages("continue", "ru"))
     answer = input()
     if answer[0].casefold() != "y":
         break
