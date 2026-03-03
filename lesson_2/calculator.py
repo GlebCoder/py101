@@ -4,53 +4,56 @@
 # Print the result
 import json
 
+LANGUAGE = "en"
+
 def prompt(message):
+    message = messages(message, LANGUAGE)
     print(f"==> {message}")
 
 def invalid_num(num_str):
     try:
-        int(num_str)
+        float(num_str)
     except ValueError:
         return True
     return False
 
-def messages(message, lang="en"):
-    return MESSAGES[lang][message]
+def messages(message, LANGUAGE):
+    return MESSAGES[LANGUAGE][message]
 
 with open("config_message_calculator.json", 'r') as f:
    MESSAGES = json.load(f)
 
-prompt(messages("welcome", "ru"))
+prompt("welcome")
 
-prompt(messages("your name", "ru"))
+prompt("your name")
 name = input()
 
-prompt(f'{messages("hello", "ru")} {name}!')
+print(f'{messages("hello",  LANGUAGE)} {name}!')
 
 while True:
-    prompt(messages("first number", "ru"))
+    prompt("first number")
     first_num = input()
 
     while invalid_num(first_num):
-        print(messages("invalid number", "ru"))
+        prompt("invalid number")
         first_num = input()
 
-    prompt(messages("second number", "ru"))
+    prompt("second number")
     second_num = input()
 
     while invalid_num(second_num):
-        print(messages("invalid number", "ru"))
+        prompt("invalid number")
         second_num = input()
 
-    prompt(messages("operation", "ru"))
+    prompt("operation")
     operation = input()
 
     while operation not in ["1", "2", "3", "4"]:
-        print(messages("must choose", "ru"))
+        prompt("must choose")
         operation = input()
 
-    first_num = int(first_num)
-    second_num = int(second_num)
+    first_num = float(first_num)
+    second_num = float(second_num)
 
     match operation:
         case "1":
@@ -62,8 +65,8 @@ while True:
         case "4":
             output = first_num / second_num
 
-    print(f'{messages("result", "ru")}: {output}')
-    print(messages("continue", "ru"))
+    print(f'{messages("result", LANGUAGE)}: {output}')
+    prompt("continue")
     answer = input()
     if answer[0].casefold() != "y":
         break
