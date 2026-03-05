@@ -27,7 +27,7 @@ def prompt(message):
     print(f"==> {message}")
 
 
-def get_valid_choices():
+def display_valid_choices():
     list_of_valid_choices = []
     for key in WINS_AGAINST:
         if key[0] == "s":
@@ -39,9 +39,9 @@ def get_valid_choices():
 
 
 def get_player_choice():
-    prompt(f"Choose one: {get_valid_choices()}")
+    prompt(f"Choose one: {display_valid_choices()}")
     choice = input().casefold().strip()
-    while choice not in MAP_CHOICES.keys():
+    while choice not in MAP_CHOICES:
         prompt("It's not a valid choice!")
         choice = input().casefold().strip()
     return MAP_CHOICES[choice]
@@ -82,7 +82,7 @@ def clear_screen():
 prompt(f"We are playing rock, paper, scissors, lizard, or spock!")
 prompt("Below the rules:")
 for key in WINS_AGAINST:
-    print(f"{key.capitalize()}: wins {WINS_AGAINST[key][0]} and {WINS_AGAINST[key][1]}")
+    prompt(f"{key.capitalize()}: wins {WINS_AGAINST[key][0]} and {WINS_AGAINST[key][1]}")
 
 while True:
     your_wins = 0
