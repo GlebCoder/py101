@@ -1,6 +1,5 @@
 import random
-import pdb
-from pdb import set_trace
+
 
 VALID_CHOICES = ["r", "p", "sc", "l", "sp"]
 WINS_AGAINST = {
@@ -26,7 +25,6 @@ prompt(f"We are playing rock, paper, scissors, lizard, or spock!")
 while True:
     your_wins = 0
     computer_wins = 0
-    #set_trace()
     while your_wins < 3 and computer_wins < 3:
         prompt(f"Choose one: {', '.join(VALID_CHOICES)}")
         choice = input().casefold()
