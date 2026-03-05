@@ -1,45 +1,62 @@
 import random
+import pdb
+from pdb import set_trace
 
-VALID_CHOICES = ["rock", "paper", "scissors"]
+VALID_CHOICES = ["r", "p", "sc", "l", "sp"]
+WINS_AGAINST = {
+                "r": ["sc", "l"],
+                "p": ["r", "sp"],
+                "sc": ["p", "l"],
+                "sp": ["r", "sc"],
+                "l": ["r", "sc"],
+}
 
 def prompt(message):
     print(f"==> {message}")
 
-def game_result(choice, computer_choice):
+def find_winner(choice, computer_choice):
     if choice == computer_choice:
-        prompt("It's a tie!")
-    if ((choice == "rock" and computer_choice == "scissors") or
-        (choice == "paper" and computer_choice == "rock") or
-        (choice == "scissors" and computer_choice == "paper")):
-        prompt("You win")
-    if ((choice == "rock" and computer_choice == "paper") or
-        (choice == "paper" and computer_choice == "scissors") or
-        (choice == "scissors" and computer_choice == "rock")):
-        prompt("Computer wins")
+        return "It's a tie"
+    if computer_choice in WINS_AGAINST[choice]:
+        return "You win"
+    return "Computer wins"
 
 
-
-prompt(f"We are playing {', '.join(VALID_CHOICES)}!")
+prompt(f"We are playing rock, paper, scissors, lizard, or spock!")
 while True:
-    prompt(f"Choose one: {', '.join(VALID_CHOICES)}")
-    choice = input().casefold()
-    while choice not in VALID_CHOICES:
-        prompt("It's not a valid choice!")
+    your_wins = 0
+    computer_wins = 0
+    #set_trace()
+    while your_wins < 3 and computer_wins < 3:
+        prompt(f"Choose one: {', '.join(VALID_CHOICES)}")
         choice = input().casefold()
+        while choice not in VALID_CHOICES:
+            prompt("It's not a valid choice!")
+            choice = input().casefold()
 
-    computer_choice = random.choice(VALID_CHOICES)
+        computer_choice = random.choice(VALID_CHOICES)
 
-    prompt(f"You chose {choice}, computer chose {computer_choice}")
-    game_result(choice, computer_choice)
+        prompt(f"You chose {choice}, computer chose {computer_choice}")
+        game_result = find_winner(choice, computer_choice)
+        prompt(game_result)
+
+        if game_result == "Computer wins":
+            computer_wins += 1
+
+        if game_result == "You win":
+            your_wins += 1
+
+    if your_wins == 3:
+        prompt("Match is over. You win!")
+    else:
+        prompt("Match is over. Computer wins!")
 
     prompt(f"Play again? (y/n)")
     answer = input().casefold()
-    while True:
-        if not answer or (answer[0] != "y" and answer[0] != "n"):
-            prompt("It's not a valid answer! You have to choose 'y' or 'n'")
-            answer = input().casefold()
-        else:
-            break
+    while not answer or (answer[0] != "y" and answer[0] != "n"):
+        prompt("It's not a valid answer! You have to choose 'y' or 'n'")
+        answer = input().casefold()
+
     if answer[0] == "n":
         break
 
